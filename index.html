@@ -28,12 +28,12 @@
 <main role="main" class="container">
     <h1 class="mt-5">Задание</h1>
     <p class="lead">Добавьте на страницу JavaScript код, который будет обрабатывать нажатие кнопок выставления и очистки оценок, а также код для кнопки подсчета средней оценки по группе.</p>
-    
+
     <button type="button" id="button_5" class="btn btn-success">Всем 5</button>
     <button type="button" class="btn btn-info">Всем 4</button>
     <button type="button" class="btn btn-warning">Всем 3</button>
     <button type="button" class="btn btn-danger">Всем 2</button>
-    <button type="button" class="btn btn-primary">Очистить оценки</button>
+    <button type="button" id="clear" class="btn btn-primary">Очистить оценки</button>
 
     <table class="table">
         <thead>
@@ -46,7 +46,7 @@
         <tbody>
         </tbody>
     </table>
-    <button type="button" id="button_avg" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Подсчитать средний балл</button>
+    <button type="button" id="button_avg" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Подсчитать средний балл</button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -54,29 +54,17 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Средняя оценка по группе:</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="average">
                     ...
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Форма для суммирования чисел -->
-    <form id="form">
-        <input type="number" placeholder="Введите число 1" required>
-        <input type="number" placeholder="Введите число 2" required>
-        <input type="number" placeholder="Введите число 3" required>
-        <input type="number" placeholder="Введите число 4" required>
-        <button type="button" id="calculate" class="btn btn-primary">Посчитать сумму</button>
-    </form>
-    <p id="result"></p>
 </main>
 
 <footer class="footer"></footer>
@@ -118,7 +106,7 @@
         });
 
         // Очистка оценок
-        $(".btn-primary").click(function() {
+        $("#clear").click(function() {
             $(".rating").each(function() {
                 this.value = ""; // Очистка значения
             });
@@ -139,19 +127,6 @@
 
             var average = count > 0 ? (sum / count).toFixed(2) : 0;
             $("#average").text(average); // Вывод среднего значения в модальное окно
-            $("#exampleModal").modal('show'); // Открытие модального окна
-        });
-
-        // Обработка суммы чисел из формы
-        $("#calculate").click(function() {
-            var sum = 0;
-            $("#form input[type='number']").each(function() {
-                var value = parseFloat($(this).val());
-                if (!isNaN(value)) {
-                    sum += value;
-                }
-            });
-            $("#result").text("Сумма: " + sum);
         });
     });
 </script>
